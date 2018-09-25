@@ -1,9 +1,9 @@
 machine:
-  java:
+  java: 8
     version: oraclejdk8
 
 deployment: java
-  staging:
+  staging: Lab5
     branch: master
     heroku: nontoa
       appname: Laboratorio05
