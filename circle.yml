@@ -1,4 +1,4 @@
-machine:
+machine: nontoa
   java: 8
     version: oraclejdk8
 
