@@ -57,26 +57,26 @@ public class ValidateServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Writer responseWriter = resp.getWriter();
-		Optional<String> obj = (Optional.of(req.getParameter("personID")));
-		Optional<String> obj2 = (Optional.of(req.getParameter("salary")));
-		Optional<String> obj3 = (Optional.of(req.getParameter("SocialSecurity")));
-		try {
-			Integer id = Integer.valueOf(obj.get());
-			Long salario = Long.valueOf(obj2.get());
-			SocialSecurityType social = SocialSecurityType.valueOf(obj3.get());
-			Employee emp = new Employee(id,salario,social);
-			Optional<ErrorType> response = validator.validate(emp);
-			resp.setContentType("");
-			resp.setStatus(200);
-			responseWriter.write(String.format(readFile("result.html"), response.map(ErrorType::name).orElse("Success")));
-			responseWriter.flush();
-		}
-		
-		catch(Exception e) {
-			responseWriter.write(e.toString());
-		}
-	}
 
+		// TODO Create and validate employee
+		Employee employee = new Employee(
+				Integer.parseInt(req.getParameter("personID")),
+				Integer.parseInt(req.getParameter("salary")),
+				SocialSecurityType.valueOf(req.getParameter("SocialSecurity"))				
+				);
+		
+		Optional<ErrorType> response = validator.validate(employee);
+
+		// TODO Add the Content Type, Status, and Response according to validation response
+		resp.setContentType("text/html");
+		if(response.isPresent()) {
+			resp.setStatus(200);
+		}else {
+			resp.setStatus(400);
+		}
+		responseWriter.write(String.format(readFile("result.html"), response.map(ErrorType::name).orElse("Success")));
+		responseWriter.flush();
+	}
 	/**
 	 * Reads a file from the resources folder
 	 * 
