@@ -72,5 +72,9 @@ public class Employee {
 	public void setSocialSecurityType(SocialSecurityType socialSecurityType) {
 		this.socialSecurityType = socialSecurityType;
 	}
+	
+	public String toString() {
+		return personId+" "+ salary + " " + socialSecurityType;
+	}
 
 }
